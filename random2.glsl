@@ -44,6 +44,8 @@ vec3 line(vec2 coord, bool toggle) {
 
 void main() {
   vec2 coord = gl_FragCoord.xy / u_resolution; // 각 픽셀들 좌표값 normalize
+  coord.x *= u_resolution.x / u_resolution.y; // 캔버스를 resizing 해도 왜곡이 없도록 좌표값에 해상도비율값 곰해줌.
+
   coord *= 10.; // 캔버스 좌표계를 10배로 키움. 즉, 0 ~ 1 사이의 좌표값을 0 ~ 10 으로 Mapping 시킴.
 
   // 대각선의 방향을 결정하는 boolean값을 지난 번 예제에서 배웠던 두번째 랜덤함수로 구함.
@@ -58,8 +60,6 @@ void main() {
   // 캔버스 좌표계를 타일화시킴
   // 왜? 좌표값의 정수부분을 모두 없애버리고 소수부분(fract)만 남겨주면, 0 ~ 10 사이의 좌표값을 사실상 0 ~ 1사이의 좌표값 10번 반복으로 Mapping 시키게 되는 셈이기 때문!
   coord = fract(coord);
-
-  coord.x *= u_resolution.x / u_resolution.y; // 캔버스를 resizing 해도 왜곡이 없도록 좌표값에 해상도비율값 곰해줌.
 
   vec3 col = line(coord, dir);
 
