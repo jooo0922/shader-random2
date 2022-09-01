@@ -31,6 +31,7 @@ vec3 line(vec2 coord, bool toggle) {
     y = coord.x;
   } else {
     // toggle이 false면 1 - coord.x 값을 넣어줘서 ret값이 계산되도록 함. -> 대각선이 우하단으로 내리꽂게 됨.
+    // why? coord.x 는 우측으로 갈수록 값이 커지지만, 1.0 - coord.x 는 우측으로 갈수록 값이 작아지니까 ret 값이 x축 방향으로 대칭(?)이 되므로!
     y = 1. - coord.x;
   }
 
